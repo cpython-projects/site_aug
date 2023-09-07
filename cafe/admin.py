@@ -1,6 +1,18 @@
 from django.contrib import admin
-from .models import DishCategory, Dish
+from .models import DishCategory, Dish, Gallery
 from django.utils.safestring import mark_safe
+
+
+@admin.register(Gallery)
+class GalleryAdmin(admin.ModelAdmin):
+    list_display = ('id', 'is_visible', 'photo_src_tag',)
+
+    def photo_src_tag(self, obj):
+        if obj.photo:
+            return mark_safe(f"<img src='{obj.photo.url}' width=50>")
+
+    photo_src_tag.short_description = 'Gallery photo'
+
 
 @admin.register(DishCategory)
 class DishCategoryAdmin(admin.ModelAdmin):

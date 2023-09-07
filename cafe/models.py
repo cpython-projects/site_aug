@@ -1,7 +1,7 @@
 from django.db import models
+from django.core.validators import RegexValidator
 
 
-# Create your models here.
 class DishCategory(models.Model):
     name = models.CharField(max_length=50, unique=True)
     slug = models.SlugField(max_length=50, unique=True, db_index=True)
@@ -31,5 +31,36 @@ class Dish(models.Model):
     category = models.ForeignKey(DishCategory, on_delete=models.PROTECT, related_name='dishes')
 
     is_visible = models.BooleanField(default=True)
+
+
+class Gallery(models.Model):
+    photo = models.ImageField(upload_to='gallery/')
+    is_visible = models.BooleanField(default=True)
+
+
+class Reservation(models.Model):
+    name = models.CharField(max_length=60)
+    email = models.EmailField()
+    phone_regex = RegexValidator(
+        regex=r'^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$',
+        message='Phone number must be entered in the format: +38(0xx)xxxxxxx',
+    )
+    phone = models.CharField(validators=[phone_regex], max_length=20)
+    date = models.DateField()
+    time = models.TimeField()
+    people = models.PositiveSmallIntegerField()
+    message = models.TextField(max_length=200, blank=True)
+
+    is_processed = models.BooleanField(default=False)
+    date_in = models.DateTimeField(auto_now_add=True)
+    date_modify = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'{self.name} - {self.phone}: {self.date} {self.time}'
+
+    class Meta:
+        ordering = ('-date',)
+
+
 
 
