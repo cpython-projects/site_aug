@@ -1,3 +1,5 @@
+import urllib
+
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView
 from .forms import UserRegistrationForm, UserLoginForm
@@ -23,5 +25,7 @@ class LoginUser(LoginView):
     template_name = 'login.html'
 
     def get_success_url(self):
+
         url = self.request.GET.get('next') or self.request.POST.get('next') or '/'
-        return redirect(url)
+
+        return url
