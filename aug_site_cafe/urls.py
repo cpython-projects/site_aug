@@ -17,6 +17,7 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from account.views import RegisterUser, LoginUser, logout_user
 
 from aug_site_cafe import settings
 
@@ -24,6 +25,11 @@ from aug_site_cafe import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('cafe.urls')),
+    path('manager/', include('manager.urls')),
+
+    path('register/', RegisterUser.as_view(), name='register'),
+    path('login/', LoginUser.as_view(), name='login'),
+    path('logout/', logout_user, name='logout'),
 ]
 
 if settings.DEBUG:

@@ -370,10 +370,10 @@
 
       </div>
     </section><!-- End Chefs Section -->
-
+    {% if request.user.is_authenticated %}
     <!-- ======= Book A Table Section ======= -->
     {% include 'booking_form.html' %}
-
+    {% endif %}
     <!-- ======= Gallery Section ======= -->
     {% include 'gallery.html' %}
 

@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'cafe.apps.CafeConfig',
     'app.apps.AppConfig',
     'ckeditor',
+    'account.apps.AccountConfig',
 ]
 
 MIDDLEWARE = [
