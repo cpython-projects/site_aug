@@ -1,16 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import DishCategory, Gallery
+from .models import DishCategory, Gallery, ContactInfoItem, Event
 from django.views.generic import TemplateView
-from .forms import ReservationForm
+from .forms import ReservationForm, ContactForm
 from django.contrib import messages
-
-# def main_page(request):
-#     if request.method == 'POST':
-#         ...
-#     elif request.method == 'GET':
-#         categories = DishCategory.objects.filter(is_visible=True)
-#         gallery = Gallery.objects.filter(is_visible=True).order_by('?')[:4]
-#         return render(request, 'main.html', context={'categories': categories, 'gallery': gallery})
+from django.core.mail import send_mail
+from django.db import models
+from django.utils import timezone
 
 
 class MainPage(TemplateView):
@@ -22,18 +17,40 @@ class MainPage(TemplateView):
         context['categories'] = DishCategory.objects.filter(is_visible=True)
         context['gallery'] = Gallery.objects.filter(is_visible=True).order_by('?')[:4]
         context['booking_form'] = ReservationForm()
+        context['title'] = 'Yummy'
+        context['contacts_info'] = ContactInfoItem.objects.all()
+        context['events'] = Event.objects.filter(models.Q(is_visible=True) &
+                                                 (models.Q(date_time__isnull=True) |
+                                                  models.Q(date_time__date__gte=timezone.now())))
+        context['contact_form'] = ContactForm()
         return context
 
     def post(self, request, *args, **kwargs):
-        reservation_form = ReservationForm(request.POST)
-        if reservation_form.is_valid():
-            reservation_form.save()
-            messages.success(request, 'Сообщение о бронировании столика отправлено администратору!')
-            redirect('cafe:home')
-        messages.error(request, 'Сообщение о бронировании столика НЕ отправлено администратору!')
-        context = super().get_context_data(**kwargs)
-        context['booking_form'] = reservation_form
-        return render(request, self.template_name, context=context)
+        contact_form = ContactForm(request.POST)
+        booking_form = ReservationForm(request.POST)
 
+        if contact_form.is_valid():
+            name = contact_form.cleaned_data['name']
+            email = contact_form.cleaned_data['email']
+            message = contact_form.cleaned_data['message']
 
+            send_mail(
+                'Сообщение с контактной формы',
+                f'Имя: {name}\nEmail: {email}\nСообщение: {message}',
+                f'{email}',
+                ['oleg.s.tymchuk@gmail.com'],
+                fail_silently=False,
+            )
 
+            messages.success(request, 'Сообщение успешно отправлено')
+            return redirect('cafe:home')
+
+        if booking_form.is_valid():
+            booking_form.save()
+            messages.success(request, 'Ваш заказ принят')
+            return redirect('cafe:home')
+
+        context = self.get_context_data()
+        context['contact_form'] = contact_form
+        context['booking_form'] = booking_form
+        return render(request, self.template_name, context)

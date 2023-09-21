@@ -1,9 +1,11 @@
 from django.contrib import admin
-from .models import DishCategory, Dish, Gallery, Reservation
+from .models import DishCategory, Dish, Gallery, Reservation, ContactInfoItem, Event
 from django.utils.safestring import mark_safe
 
-admin.site.register(Reservation)
 
+admin.site.register(Reservation)
+admin.site.register(ContactInfoItem)
+admin.site.register(Event)
 @admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ('id', 'is_visible', 'photo_src_tag',)

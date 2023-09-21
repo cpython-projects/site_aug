@@ -1,0 +1,41 @@
+<section id="contact" class="contact">
+    <div class="container" data-aos="fade-up">
+        <div class="section-header">
+            <p>Наші контакти</p>
+        </div>
+
+        <div class="mb-3">
+        </div>
+
+        <div class="row gy-4">
+            {% for item in contacts_info %}
+                <div class="col-md-6">
+                    <div class="info-item  d-flex align-items-center">
+                        {{ item.item | safe}}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <form action=="{% url 'cafe:home' %}" method="post" role="form" class="email-form p-3 p-md-4">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-xl-6 form-group">{{ contact_form.name }}</div>
+                <div class="col-xl-6 form-group">{{ contact_form.email }}</div>
+            </div>
+            <div class="form-group">
+                {{ contact_form.subject }}
+            </div>
+            <div class="form-group">
+                {{ contact_form.message }}
+            </div>
+            <div class="form-group">
+                {{ contact_form.captcha }}
+            </div>
+            <div class="my-3">
+            </div>
+            <div class="text-center"><button type="submit">Відправити</button></div>
+        </form>
+    </div>
+</section>
+

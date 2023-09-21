@@ -24,14 +24,16 @@ SECRET_KEY = 'django-insecure-=tk4*_thxms&!$kpa7g1e+@ch#8g@&yeq(^uyn@+_=(7j8)wf5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# DEBUG = False
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['*']
 
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
         'height': 150,
         'width': 800,
+        'removePlugins': 'stylesheetparser',
     },
 }
 
@@ -47,7 +49,10 @@ INSTALLED_APPS = [
     'cafe.apps.CafeConfig',
     'app.apps.AppConfig',
     'ckeditor',
+    'captcha',
     'account.apps.AccountConfig',
+    'manager.apps.ManagerConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -75,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'app.context_processors.footer',
+                'app.context_processors.main_menu_items',
             ],
         },
     },
@@ -139,3 +145,9 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+RECAPTCHA_PUBLIC_KEY = '6Lfgs-8mAAAAAAWDtfQ9VQQNucb9hgo4DsEh7vX-'
+RECAPTCHA_PRIVATE_KEY = '6Lfgs-8mAAAAAEPhYuJIfC-SbYYwFy9OAdrEwyt6'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 25

@@ -32,5 +32,8 @@ urlpatterns = [
     path('logout/', logout_user, name='logout'),
 ]
 
+handler404 = 'app.views.handler404'
+handler500 = 'app.views.handler500'
+
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

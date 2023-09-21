@@ -1,4 +1,5 @@
 from django import forms
+from captcha.fields import ReCaptchaField
 from .models import Reservation
 
 
@@ -40,3 +41,23 @@ class ReservationForm(forms.ModelForm):
         model = Reservation
         fields = ('name', 'email', 'phone', 'date', 'time', 'people', 'message')
 
+
+class ContactForm(forms.Form):
+    name = forms.CharField(label='name', widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                       'id': 'name',
+                                                                       'placeholder': 'Your Name',
+                                                                       'required': 'true'}))
+    email = forms.EmailField(label='email', widget=forms.EmailInput(attrs={'class': 'form-control',
+                                                                           'id': 'email',
+                                                                           'placeholder': 'Your Email',
+                                                                           'required': 'true'}))
+    subject = forms.CharField(label='subject', widget=forms.TextInput(attrs={'class': 'form-control',
+                                                                             'id': 'subject',
+                                                                             'placeholder': 'Subject',
+                                                                             'required': 'true'}))
+    message = forms.CharField(label='message', widget=forms.Textarea(attrs={'class': 'form-control',
+                                                                            'rows': 5,
+                                                                            'id': 'message',
+                                                                            'placeholder': 'Message',
+                                                                            'required': 'true'}))
+    captcha = ReCaptchaField()

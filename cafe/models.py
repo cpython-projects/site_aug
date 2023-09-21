@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from ckeditor.fields import RichTextField
 
 
 class DishCategory(models.Model):
@@ -62,5 +63,30 @@ class Reservation(models.Model):
         ordering = ('-date',)
 
 
+class ContactInfoItem(models.Model):
+    item = RichTextField()
+    position = models.PositiveSmallIntegerField(unique=True)
+
+    class Meta:
+        ordering = ('position', )
 
 
+class Event(models.Model):
+    title = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=50, unique=True, db_index=True, verbose_name='url')
+    position = models.PositiveSmallIntegerField()
+    short_desc = models.TextField(max_length=500, blank=True)
+    desc = models.TextField(max_length=2000, blank=True)
+    price = models.DecimalField(max_digits=8, decimal_places=2)
+    photo = models.ImageField(upload_to='events/', blank=True)
+    date_time = models.DateTimeField(null=True, blank=True)
+
+    is_visible = models.BooleanField(default=True)
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name_plural = 'Events'
+        ordering = ('position', )
+        unique_together = ['id', 'slug']

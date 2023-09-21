@@ -1,0 +1,13 @@
+{% extends 'index.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1>Редактировать бронирование</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </form>
+        <a href="{% url 'manager:reservation_list' %}" class="btn btn-secondary mt-3">Назад к списку бронирований</a>
+    </div>
+{% endblock %}
