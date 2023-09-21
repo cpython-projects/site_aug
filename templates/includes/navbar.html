@@ -1,7 +1,15 @@
+{% load custom_tags %}
+
 <nav id="navbar" class="navbar">
     <ul>
-        {% for item in main_menu_items %}
-            <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+        {% for item in main_menu_items  %}
+            {% if not item.is_manager_only %}
+                <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+            {% else %}
+                 {% if request.user|user_in_group:'manager' %}
+                     <li><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></li>
+                 {% endif %}
+            {% endif %}
         {% endfor %}
     </ul>
 </nav>

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import DishCategory, Gallery, ContactInfoItem, Event
+from .models import DishCategory, Gallery, ContactInfoItem, Event, Chef, IconBox
 from django.views.generic import TemplateView
 from .forms import ReservationForm, ContactForm
 from django.contrib import messages
@@ -22,6 +22,10 @@ class MainPage(TemplateView):
         context['events'] = Event.objects.filter(models.Q(is_visible=True) &
                                                  (models.Q(date_time__isnull=True) |
                                                   models.Q(date_time__date__gte=timezone.now())))
+        context['chefs'] = Chef.objects.filter(is_visible=True)
+
+        context['icon_boxes'] = IconBox.objects.all()
+
         context['contact_form'] = ContactForm()
         return context
 

@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=tk4*_thxms&!$kpa7g1e+@ch#8g@&yeq(^uyn@+_=(7j8)wf5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
-ALLOWED_HOSTS = []
-# ALLOWED_HOSTS = ['*']
+# DEBUG = True
+DEBUG = False
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 CKEDITOR_CONFIGS = {
     'default': {
@@ -145,6 +145,7 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 RECAPTCHA_PUBLIC_KEY = '6Lfgs-8mAAAAAAWDtfQ9VQQNucb9hgo4DsEh7vX-'
 RECAPTCHA_PRIVATE_KEY = '6Lfgs-8mAAAAAEPhYuJIfC-SbYYwFy9OAdrEwyt6'
 

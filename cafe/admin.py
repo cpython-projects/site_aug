@@ -1,11 +1,25 @@
 from django.contrib import admin
-from .models import DishCategory, Dish, Gallery, Reservation, ContactInfoItem, Event
+from .models import DishCategory, Dish, Gallery, Reservation, ContactInfoItem, Event, Chef, IconBox
 from django.utils.safestring import mark_safe
 
 
 admin.site.register(Reservation)
 admin.site.register(ContactInfoItem)
 admin.site.register(Event)
+
+
+@admin.register(IconBox)
+class IconBoxAdmin(admin.ModelAdmin):
+    list_display = ('title', 'icon_class',)
+
+
+@admin.register(Chef)
+class ChefAdmin(admin.ModelAdmin):
+    list_display = ('name', 'position', 'created_at', 'updated_at')
+    list_filter = ('position',)
+    search_fields = ('name', 'position')
+    prepopulated_fields = {'slug': ('name',)}
+
 @admin.register(Gallery)
 class GalleryAdmin(admin.ModelAdmin):
     list_display = ('id', 'is_visible', 'photo_src_tag',)

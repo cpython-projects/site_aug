@@ -9,12 +9,14 @@ class ManagerAccessMixin(UserPassesTestMixin):
     def test_func(self):
         return self.request.user.groups.filter(name='manager').exists()
 
+
 # Представление для списка бронирований
 class ReservationListView(LoginRequiredMixin, ManagerAccessMixin, ListView):
-    login_url = '/login/'
+    login_url = reverse_lazy('login')
     model = Reservation
     template_name = 'book_list.html'
     context_object_name = 'reservations'
+
 
 # Представление для редактирования бронирования
 class ReservationUpdateView(LoginRequiredMixin, ManagerAccessMixin, UpdateView):
