@@ -33,8 +33,8 @@ RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG = False
+# DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['yummy-sep-460d423bc486.herokuapp.com']
 
 
