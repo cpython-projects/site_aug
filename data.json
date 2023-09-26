@@ -118,19 +118,6 @@
 },
 {
     "model": "admin.logentry",
-    "pk": 10,
-    "fields": {
-        "action_time": "2023-09-07T16:13:54.129Z",
-        "user": 1,
-        "content_type": 9,
-        "object_id": "6",
-        "object_repr": "Gallery object (6)",
-        "action_flag": 1,
-        "change_message": "[{\"added\": {}}]"
-    }
-},
-{
-    "model": "admin.logentry",
     "pk": 11,
     "fields": {
         "action_time": "2023-09-07T16:13:59.269Z",
@@ -1018,15 +1005,6 @@
 },
 {
     "model": "auth.permission",
-    "pk": 10,
-    "fields": {
-        "name": "Can change group",
-        "content_type": 3,
-        "codename": "change_group"
-    }
-},
-{
-    "model": "auth.permission",
     "pk": 11,
     "fields": {
         "name": "Can delete group",
@@ -1750,14 +1728,6 @@
 },
 {
     "model": "contenttypes.contenttype",
-    "pk": 10,
-    "fields": {
-        "app_label": "app",
-        "model": "footer"
-    }
-},
-{
-    "model": "contenttypes.contenttype",
     "pk": 11,
     "fields": {
         "app_label": "cafe",
@@ -2020,14 +1990,6 @@
     "fields": {
         "photo": "gallery/menu-item-5.png",
         "is_visible": true
-    }
-},
-{
-    "model": "cafe.gallery",
-    "pk": 10,
-    "fields": {
-        "photo": "gallery/menu-item-6.png",
-        "is_visible": false
     }
 },
 {
